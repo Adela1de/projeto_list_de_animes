@@ -49,21 +49,24 @@ public class TestConfig implements CommandLineRunner {
                 null,
                 "Luiz Adelaide",
                 "Luiz@Luiz.com",
-                "2241"
+                "2241",
+                Arrays.asList(anime2, anime1)
         );
 
         User user2 = new User(
                 null,
                 "Joao Camara",
                 "Joao@Joao.com",
-                "6666"
+                "6666",
+                Arrays.asList(anime1)
         );
 
         User user3 = new User(
                 null,
                 "Nathalia Adelaide",
                 "Nathalia@Nathalia.com",
-                "3104"
+                "3104",
+                Arrays.asList(anime2)
         );
 
         userService.saveAll(Arrays.asList(user1, user2, user3));
