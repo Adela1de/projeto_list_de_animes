@@ -1,27 +1,51 @@
 package com.example.demo.entities;
 
-import lombok.AllArgsConstructor;
+import com.example.demo.entities.pk.ScorePK;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.HashMap;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Table(name = "tb_score")
 public class Score
 {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private User user;
-    private HashMap<Double, Anime> rank = new HashMap<>();
+    @EmbeddedId
+    private ScorePK id = new ScorePK();
+    @Getter
+    @Setter
+    private Integer points;
 
+    public Score(User user, Anime anime, Integer points)
+    {
+        id.setUser(user);
+        id.setAnime(anime);
+        this.points = points;
+    }
+
+    public User getUser()
+    {
+        return id.getUser();
+    }
+
+    public void setUser(User user)
+    {
+        id.setUser(user);
+    }
+
+    public Anime getAnime()
+    {
+        return id.getAnime();
+    }
+
+    public void setUser(Anime anime)
+    {
+        id.setAnime(anime);
+    }
 
 }

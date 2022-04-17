@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.entities.Anime;
+import com.example.demo.entities.Score;
 import com.example.demo.entities.User;
 import com.example.demo.services.AnimeService;
 import com.example.demo.services.ScoreService;
@@ -71,6 +72,10 @@ public class TestConfig implements CommandLineRunner {
                 Arrays.asList(anime2)
         );
 
+        userService.saveAll(Arrays.asList(user1, user2, user3));
 
+
+        Score score1 = new Score(user1, anime1, 10);
+        scoreService.saveAll(Arrays.asList(score1));
     }
 }
