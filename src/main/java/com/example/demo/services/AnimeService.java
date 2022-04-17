@@ -5,8 +5,6 @@ import com.example.demo.repositories.AnimeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AnimeService {
@@ -15,6 +13,6 @@ public class AnimeService {
 
     public Iterable<Anime> saveAll( Iterable<Anime> anime ) { return animeRepository.saveAll( anime ); }
 
-    public List<Anime> findAll(){ return animeRepository.findAll(); }
+    public Iterable<Anime> findAll(){ return animeRepository.findAll(); }
 
 }

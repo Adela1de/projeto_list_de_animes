@@ -22,5 +22,6 @@ public class Anime implements Serializable {
     private String name;
     private String[] studio;
     private String[] genre;
+    private String autor;
 
 }
