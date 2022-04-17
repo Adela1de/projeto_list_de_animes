@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.Anime;
-import com.example.demo.services.AnimeService;
+import com.example.demo.entities.Score;
+import com.example.demo.services.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/animes")
-public class AnimeController {
+@RequestMapping(value = "/scores")
+public class ScoreController {
 
-    private final AnimeService animeService;
+    private final ScoreService scoreService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Anime>> findAll()
+    public ResponseEntity<Iterable<Score>> findAll()
     {
-        var allAnimes = animeService.findAll();
-        return ResponseEntity.ok(allAnimes);
+        var allScores = scoreService.findAll();
+        return ResponseEntity.ok(allScores);
     }
 }

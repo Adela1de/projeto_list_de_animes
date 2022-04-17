@@ -3,6 +3,7 @@ package com.example.demo.config;
 import com.example.demo.entities.Anime;
 import com.example.demo.entities.User;
 import com.example.demo.services.AnimeService;
+import com.example.demo.services.ScoreService;
 import com.example.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +17,7 @@ public class TestConfig implements CommandLineRunner {
 
     private final AnimeService animeService;
     private final UserService userService;
+    private final ScoreService scoreService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -69,6 +71,6 @@ public class TestConfig implements CommandLineRunner {
                 Arrays.asList(anime2)
         );
 
-        userService.saveAll(Arrays.asList(user1, user2, user3));
+
     }
 }
