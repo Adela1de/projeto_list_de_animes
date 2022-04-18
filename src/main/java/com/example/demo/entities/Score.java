@@ -16,6 +16,8 @@ public class Score
 {
 
     @EmbeddedId
+    @Getter
+    @Setter
     private ScorePK id = new ScorePK();
     @Getter
     @Setter
