@@ -23,18 +23,18 @@ public class Anime implements Serializable {
     private String name;
     private String[] studio;
     private String[] genre;
-    private String autor;
+    private String author;
     @JsonIgnore
     @ManyToMany(mappedBy = "favorites")
     private List<User> users = new ArrayList<>();
 
 
-    public Anime(Long id, String name, String[] studio, String[] genre, String autor)
+    public Anime(Long id, String name, String[] studio, String[] genre, String author)
     {
         this.id = id;
         this.name = name;
         this.studio = studio;
         this.genre = genre;
-        this.autor = autor;
+        this.author = author;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AnimeService {
@@ -15,7 +17,7 @@ public class AnimeService {
 
     public Iterable<Anime> saveAll( Iterable<Anime> anime ) { return animeRepository.saveAll( anime ); }
 
-    public Iterable<Anime> findAll(){ return animeRepository.findAll(); }
+    public List<Anime> findAll(){ return animeRepository.findAll(); }
 
     public Anime findByIdOrElseThrowResponseStatusException(Long id)
     {
