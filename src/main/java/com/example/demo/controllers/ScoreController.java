@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
 public class ScoreController {
 
     private final ScoreService scoreService;
-    private final AnimeService animeService;
-    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<Iterable<ScoreDTO>> findAll()
@@ -40,9 +38,10 @@ public class ScoreController {
     @GetMapping(path = "/find")
     public ResponseEntity<ScoreDTO> findById(@RequestBody ScoreGetRequestBody scoreGetRequestBody)
     {
-        var userId = scoreGetRequestBody.getUserId();
-        var animeId = scoreGetRequestBody.getAnimeId();
-        var score = scoreService.findByIdOrElseThrowResponseStatusException(userId, animeId);
+        var score =
+                scoreService.
+                findByIdOrElseThrowResponseStatusException(scoreGetRequestBody);
+
         var scoreDTO = ScoreMapper.INSTANCE.toScoreDTO(score);
 
         return ResponseEntity.ok(scoreDTO);
@@ -51,10 +50,7 @@ public class ScoreController {
     @PostMapping
     public ResponseEntity<ScoreDTO> addScore(@RequestBody ScorePostRequestBody scorePostRequestBody)
     {
-        var user = userService.findByIdOrElseThrowResponseStatusException(scorePostRequestBody.getUserId());
-        var anime = animeService.findByIdOrElseThrowResponseStatusException(scorePostRequestBody.getAnimeId());
-        var entry = scorePostRequestBody.getEntry();
-        var savedScore = scoreService.saveScore(new Score(user, anime, entry));
+        var savedScore = scoreService.saveScore(scorePostRequestBody);
         var savedScoreDTO = ScoreMapper.INSTANCE.toScoreDTO(savedScore);
         return new ResponseEntity<ScoreDTO>(savedScoreDTO, HttpStatus.CREATED);
     }
