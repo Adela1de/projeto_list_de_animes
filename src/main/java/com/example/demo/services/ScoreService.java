@@ -14,4 +14,6 @@ public class ScoreService {
     public Iterable<Score> saveAll(Iterable<Score> scores){ return scoreRepository.saveAll(scores); }
 
     public Iterable<Score> findAll(){ return scoreRepository.findAll(); }
+
+    public Score saveScore(Score score){ return scoreRepository.save(score); }
 }

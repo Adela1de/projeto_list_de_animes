@@ -76,6 +76,8 @@ public class TestConfig implements CommandLineRunner {
 
 
         Score score1 = new Score(user1, anime1, 10);
-        scoreService.saveAll(Arrays.asList(score1));
+        Score score2 = new Score(user1, anime2, 5);
+        Score score3 = new Score(user3, anime2, 8);
+        scoreService.saveAll(Arrays.asList(score1, score2, score3));
     }
 }

@@ -19,13 +19,13 @@ public class Score
     private ScorePK id = new ScorePK();
     @Getter
     @Setter
-    private Integer points;
+    private Integer entry;
 
-    public Score(User user, Anime anime, Integer points)
+    public Score(User user, Anime anime, Integer entry)
     {
         id.setUser(user);
         id.setAnime(anime);
-        this.points = points;
+        this.entry = entry;
     }
 
     public User getUser()
