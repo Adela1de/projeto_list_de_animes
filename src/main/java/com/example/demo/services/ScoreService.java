@@ -27,6 +27,13 @@ public class ScoreService {
 
     public List<Score> findAll(){ return scoreRepository.findAll(); }
 
+    public List<Score> findByUser(Long id)
+    {
+
+        var userList = scoreRepository.findByUser(id);
+        return userList;
+    }
+
     public Score findByIdOrElseThrowResponseStatusException(ScoreGetRequestBody scoreGetRequestBody)
     {
         var user = userRepository.findById(scoreGetRequestBody.getUserId()).get();

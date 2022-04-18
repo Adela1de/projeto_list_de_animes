@@ -3,11 +3,8 @@ package com.example.demo.controllers;
 import com.example.demo.Requests.ScoreGetRequestBody;
 import com.example.demo.Requests.ScorePostRequestBody;
 import com.example.demo.dtos.ScoreDTO;
-import com.example.demo.entities.Score;
 import com.example.demo.mapper.ScoreMapper;
-import com.example.demo.services.AnimeService;
 import com.example.demo.services.ScoreService;
-import com.example.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +42,20 @@ public class ScoreController {
         var scoreDTO = ScoreMapper.INSTANCE.toScoreDTO(score);
 
         return ResponseEntity.ok(scoreDTO);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Iterable<ScoreDTO>> findByUser(@PathVariable Long id)
+    {
+        var userScoresDTO =
+                scoreService.
+                findByUser(id).
+                stream().
+                map(ScoreMapper.INSTANCE::toScoreDTO).
+                collect(Collectors.toList());
+
+        return ResponseEntity.ok(userScoresDTO);
+
     }
 
     @PostMapping
