@@ -2,9 +2,7 @@ package com.example.demo.entities.pk;
 
 import com.example.demo.entities.Anime;
 import com.example.demo.entities.User;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -13,6 +11,8 @@ import java.io.Serializable;
 
 @Embeddable
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class ScorePK implements Serializable {
