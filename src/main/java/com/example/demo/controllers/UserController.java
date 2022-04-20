@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.Requests.UserPostRequestBody;
 import com.example.demo.dtos.UserDTO;
-import com.example.demo.entities.User;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +41,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> addUser(@RequestBody User user)
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserPostRequestBody userPostRequestBody)
     {
+        var user = UserMapper.INSTANCE.toUser(userPostRequestBody);
         var userSaved = userService.saveUser(user);
         var userSavedDTO = UserMapper.INSTANCE.toUserDTO(userSaved);
         return new  ResponseEntity<UserDTO>(userSavedDTO, HttpStatus.CREATED);

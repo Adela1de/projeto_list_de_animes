@@ -51,28 +51,28 @@ public class DatabaseInitializer {
                 null,
                 "Luiz Adelaide",
                 "Luiz@Luiz.com",
-                "2241",
-                Arrays.asList(anime2, anime1)
+                "2241"
         );
 
         User user2 = new User(
                 null,
                 "Joao Camara",
                 "Joao@Joao.com",
-                "6666",
-                Arrays.asList(anime1)
+                "6666"
         );
 
         User user3 = new User(
                 null,
                 "Nathalia Adelaide",
                 "Nathalia@Nathalia.com",
-                "3104",
-                Arrays.asList(anime2)
+                "3104"
         );
 
-        userService.saveAll(Arrays.asList(user1, user2, user3));
+        user1.getFavorites().addAll(Arrays.asList(anime2, anime1));
+        user2.getFavorites().add(anime1);
+        user3.getFavorites().add(anime2);
 
+        userService.saveAll(Arrays.asList(user1, user2, user3));
 
         Score score1 = new Score(user1, anime1, 10);
         Score score2 = new Score(user1, anime2, 5);
