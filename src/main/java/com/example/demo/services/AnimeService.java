@@ -1,11 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Anime;
+import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.AnimeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,10 +18,10 @@ public class AnimeService {
 
     public List<Anime> findAll(){ return animeRepository.findAll(); }
 
-    public Anime findByIdOrElseThrowResponseStatusException(Long id)
+    public Anime findByIdOrElseThrowObjectNotFoundException(Long id)
     {
         return animeRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                () -> new ObjectNotFoundException("Anime not found! ID: " + id + " type: " + Anime.class.getName()));
     }
 
     public Anime saveAnime(Anime anime){ return animeRepository.save(anime); }

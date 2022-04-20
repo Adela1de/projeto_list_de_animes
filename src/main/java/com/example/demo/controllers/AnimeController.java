@@ -34,7 +34,7 @@ public class AnimeController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<AnimeDTO> findById(@PathVariable Long id)
     {
-        var anime = animeService.findByIdOrElseThrowResponseStatusException(id);
+        var anime = animeService.findByIdOrElseThrowObjectNotFoundException(id);
         var animeDTO = AnimeMapper.INSTANCE.animeDTO(anime);
         return ResponseEntity.ok(animeDTO);
     }

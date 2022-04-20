@@ -1,11 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.User;
+import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,10 +18,10 @@ public class UserService {
 
     public List<User> findAll(){ return userRepository.findAll(); }
 
-    public User findByIdOrElseThrowResponseStatusException(Long id)
+    public User findByIdOrElseThrowObjectNotFoundException(Long id)
     {
         return userRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found"));
+                () -> new ObjectNotFoundException("User not found! ID: " + id + " type: " + User.class.getName()));
     }
 
     public User saveUser(User user) { return userRepository.save(user); }

@@ -37,7 +37,7 @@ public class ScoreController {
     {
         var score =
                 scoreService.
-                findByIdOrElseThrowResponseStatusException(scoreGetRequestBody);
+                        findByIdOrElseThrowObjectNotFoundException(scoreGetRequestBody);
 
         var scoreDTO = ScoreMapper.INSTANCE.toScoreDTO(score);
 
