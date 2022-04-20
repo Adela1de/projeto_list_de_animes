@@ -24,5 +24,9 @@ public class AnimeService {
                 () -> new ObjectNotFoundException("Anime not found! ID: " + id + " type: " + Anime.class.getName()));
     }
 
-    public Anime saveAnime(Anime anime){ return animeRepository.save(anime); }
+    public Anime saveAnime(Anime anime)
+    {
+        anime.setId(null);
+        return animeRepository.save(anime);
+    }
 }

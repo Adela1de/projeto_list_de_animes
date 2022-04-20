@@ -31,5 +31,8 @@ public class UserService {
         return user.getFavorites();
     }
 
-    public User saveUser(User user) { return userRepository.save(user); }
+    public User saveUser(User user) {
+        user.setId(null);
+        return userRepository.save(user);
+    }
 }

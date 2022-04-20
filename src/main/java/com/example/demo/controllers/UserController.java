@@ -7,10 +7,11 @@ import com.example.demo.mapper.AnimeMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,7 +31,7 @@ public class UserController {
                 map(UserMapper.INSTANCE::toUserDTO).
                 collect(Collectors.toList());
 
-        return ResponseEntity.ok(allUsersDTO);
+        return ResponseEntity.ok().body(allUsersDTO);
     }
 
     @GetMapping(path = "/{id}")
@@ -38,7 +39,7 @@ public class UserController {
     {
         var user = userService.findByIdOrElseThrowObjectNotFoundException(id);
         var userDTO = UserMapper.INSTANCE.toUserDTO(user);
-        return ResponseEntity.ok(userDTO);
+        return ResponseEntity.ok().body(userDTO);
 
     }
 
@@ -47,7 +48,7 @@ public class UserController {
     {
         var favorites = userService.findFavorites(id);
         var favoritesDTO = favorites.stream().map(AnimeMapper.INSTANCE::animeDTO).collect(Collectors.toList());
-        return ResponseEntity.ok(favoritesDTO);
+        return ResponseEntity.ok().body(favoritesDTO);
     }
 
     @PostMapping
@@ -56,6 +57,12 @@ public class UserController {
         var user = UserMapper.INSTANCE.toUser(userPostRequestBody);
         var userSaved = userService.saveUser(user);
         var userSavedDTO = UserMapper.INSTANCE.toUserDTO(userSaved);
-        return new  ResponseEntity<UserDTO>(userSavedDTO, HttpStatus.CREATED);
+        URI uri = ServletUriComponentsBuilder.
+                fromCurrentRequest().
+                path("/{id}").
+                buildAndExpand(userSavedDTO.getId()).
+                toUri();
+
+        return ResponseEntity.created(uri).body(userSavedDTO);
     }
 }

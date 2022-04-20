@@ -68,8 +68,21 @@ public class ScoreService {
 
     public Score saveScore(ScorePostRequestBody scorePostRequestBody)
     {
-        var user = userRepository.findById(scorePostRequestBody.getUserId()).get();
-        var anime = animeRepository.findById(scorePostRequestBody.getAnimeId()).get();
+        User user;
+        Anime anime;
+        try{
+            user = userRepository.findById(scorePostRequestBody.getUserId()).get();
+            anime = animeRepository.findById(scorePostRequestBody.getAnimeId()).get();
+        }catch (NoSuchElementException e)
+        {
+            throw new ObjectNotFoundException(
+                    "User with Id: " +
+                    scorePostRequestBody.getUserId()+
+                    " or Anime with Id: "+
+                    scorePostRequestBody.getAnimeId()+
+                    " does not exist"
+            );
+        }
         var entry = scorePostRequestBody.getEntry();
         return scoreRepository.save(new Score(user, anime, entry));
     }

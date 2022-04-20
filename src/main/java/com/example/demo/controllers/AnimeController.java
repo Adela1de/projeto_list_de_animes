@@ -5,10 +5,11 @@ import com.example.demo.entities.Anime;
 import com.example.demo.mapper.AnimeMapper;
 import com.example.demo.services.AnimeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,7 +29,7 @@ public class AnimeController {
                 map(AnimeMapper.INSTANCE::animeDTO).
                 collect(Collectors.toList());
 
-        return ResponseEntity.ok(allAnimesDTO);
+        return ResponseEntity.ok().body(allAnimesDTO);
     }
 
     @GetMapping(path = "/{id}")
@@ -36,13 +37,20 @@ public class AnimeController {
     {
         var anime = animeService.findByIdOrElseThrowObjectNotFoundException(id);
         var animeDTO = AnimeMapper.INSTANCE.animeDTO(anime);
-        return ResponseEntity.ok(animeDTO);
+        return ResponseEntity.ok().body(animeDTO);
     }
     @PostMapping
     public ResponseEntity<AnimeDTO> addAnime(@RequestBody Anime anime)
     {
         var animeSaved = animeService.saveAnime(anime);
         var animeSavedDTO = AnimeMapper.INSTANCE.animeDTO(animeSaved);
-        return new ResponseEntity<AnimeDTO>(animeSavedDTO, HttpStatus.CREATED);
+        URI uri =
+                ServletUriComponentsBuilder.
+                fromCurrentRequest().
+                path("/{id}").
+                buildAndExpand(anime.getId()).
+                toUri();
+
+        return ResponseEntity.created(uri).body(animeSavedDTO);
     }
 }

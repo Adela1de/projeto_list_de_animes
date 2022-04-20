@@ -6,10 +6,11 @@ import com.example.demo.dtos.ScoreDTO;
 import com.example.demo.mapper.ScoreMapper;
 import com.example.demo.services.ScoreService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,7 +30,7 @@ public class ScoreController {
                 map(ScoreMapper.INSTANCE::toScoreDTO).
                 collect(Collectors.toList());
 
-        return ResponseEntity.ok(allScoresDTO);
+        return ResponseEntity.ok().body(allScoresDTO);
     }
 
     @GetMapping(path = "/find")
@@ -41,7 +42,7 @@ public class ScoreController {
 
         var scoreDTO = ScoreMapper.INSTANCE.toScoreDTO(score);
 
-        return ResponseEntity.ok(scoreDTO);
+        return ResponseEntity.ok().body(scoreDTO);
     }
 
     @GetMapping(path = "/{id}")
@@ -54,7 +55,7 @@ public class ScoreController {
                 map(ScoreMapper.INSTANCE::toScoreDTO).
                 collect(Collectors.toList());
 
-        return ResponseEntity.ok(userScoresDTO);
+        return ResponseEntity.ok().body(userScoresDTO);
 
     }
 
@@ -63,6 +64,13 @@ public class ScoreController {
     {
         var savedScore = scoreService.saveScore(scorePostRequestBody);
         var savedScoreDTO = ScoreMapper.INSTANCE.toScoreDTO(savedScore);
-        return new ResponseEntity<ScoreDTO>(savedScoreDTO, HttpStatus.CREATED);
+        URI uri =
+                ServletUriComponentsBuilder.
+                fromCurrentRequest().
+                path("/{id}").
+                buildAndExpand(savedScoreDTO.getId().getUser().getId()).
+                toUri();
+
+        return ResponseEntity.created(uri).body(savedScoreDTO);
     }
 }
