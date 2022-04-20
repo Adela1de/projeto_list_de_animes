@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entities.Anime;
 import com.example.demo.entities.User;
 import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.UserRepository;
@@ -22,6 +23,12 @@ public class UserService {
     {
         return userRepository.findById(id).orElseThrow(
                 () -> new ObjectNotFoundException("User not found! ID: " + id + " type: " + User.class.getName()));
+    }
+
+    public List<Anime> findFavorites(Long id)
+    {
+        var user = findByIdOrElseThrowObjectNotFoundException(id);
+        return user.getFavorites();
     }
 
     public User saveUser(User user) { return userRepository.save(user); }

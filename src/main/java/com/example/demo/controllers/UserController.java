@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Requests.UserPostRequestBody;
+import com.example.demo.dtos.AnimeDTO;
 import com.example.demo.dtos.UserDTO;
+import com.example.demo.mapper.AnimeMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,14 @@ public class UserController {
         var userDTO = UserMapper.INSTANCE.toUserDTO(user);
         return ResponseEntity.ok(userDTO);
 
+    }
+
+    @GetMapping(path = "favorites/{id}")
+    public ResponseEntity<Iterable<AnimeDTO>> findFavorites(@PathVariable Long id)
+    {
+        var favorites = userService.findFavorites(id);
+        var favoritesDTO = favorites.stream().map(AnimeMapper.INSTANCE::animeDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(favoritesDTO);
     }
 
     @PostMapping

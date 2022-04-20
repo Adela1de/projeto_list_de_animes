@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class User implements Serializable {
     private String name;
     private String email;
     private String password;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "tb_user_favorite",
     joinColumns = @JoinColumn(name = "user_id"),

@@ -60,9 +60,9 @@ public class ScoreService {
         return scoreRepository.findById(scorePK).orElseThrow(
                 () -> new ObjectNotFoundException(
                         "Score could not be found for userId: "+
-                        scoreGetRequestBody.getUserId() +
+                        scorePK.getUser().getId() +
                         " and animeId: "+
-                        scoreGetRequestBody.getAnimeId())
+                        scorePK.getAnime().getId())
         );
     }
 
