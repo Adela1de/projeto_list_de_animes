@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.requests.scorerequests.ScoreDeleteRequestBody;
 import com.example.demo.requests.scorerequests.ScoreGetRequestBody;
 import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import com.example.demo.dtos.ScoreDTO;
@@ -72,5 +73,12 @@ public class ScoreController {
                 toUri();
 
         return ResponseEntity.created(uri).body(savedScoreDTO);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> removeScore(@RequestBody ScoreDeleteRequestBody scoreDeleteRequestBody)
+    {
+        scoreService.deleteScore(scoreDeleteRequestBody);
+        return ResponseEntity.noContent().build();
     }
 }

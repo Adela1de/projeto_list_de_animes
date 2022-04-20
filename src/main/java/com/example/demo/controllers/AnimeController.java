@@ -65,4 +65,12 @@ public class AnimeController {
 
         return ResponseEntity.ok().body(animeUpdatedDTO);
     }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteAnime(@PathVariable Long id)
+    {
+        animeService.deleteAnime(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

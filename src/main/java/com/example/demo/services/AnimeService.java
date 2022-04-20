@@ -35,4 +35,11 @@ public class AnimeService {
         findByIdOrElseThrowObjectNotFoundException(anime.getId());
         return animeRepository.save(anime);
     }
+
+    public void deleteAnime(Long id)
+    {
+        findByIdOrElseThrowObjectNotFoundException(id);
+        animeRepository.deleteById(id);
+    }
+
 }

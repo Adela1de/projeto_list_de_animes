@@ -41,4 +41,10 @@ public class UserService {
         findByIdOrElseThrowObjectNotFoundException(user.getId());
         return userRepository.save(user);
     }
+
+    public void deleteUser(Long id)
+    {
+        findByIdOrElseThrowObjectNotFoundException(id);
+        userRepository.deleteById(id);
+    }
 }

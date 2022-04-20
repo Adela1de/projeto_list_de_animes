@@ -1,7 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.requests.scorerequests.ScoreGetRequestBody;
-import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import com.example.demo.entities.Anime;
 import com.example.demo.entities.Score;
 import com.example.demo.entities.User;
@@ -10,6 +8,8 @@ import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.AnimeRepository;
 import com.example.demo.repositories.ScoreRepository;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.requests.scorerequests.ScoreGetPK;
+import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,20 +37,20 @@ public class ScoreService {
         return userList;
     }
 
-    public Score findByIdOrElseThrowObjectNotFoundException(ScoreGetRequestBody scoreGetRequestBody)
+    public Score findByIdOrElseThrowObjectNotFoundException(ScoreGetPK scoreGetPK)
     {
         User user;
         Anime anime;
         try{
-            user = userRepository.findById(scoreGetRequestBody.getUserId()).get();
-            anime = animeRepository.findById(scoreGetRequestBody.getAnimeId()).get();
+            user = userRepository.findById(scoreGetPK.getUserId()).get();
+            anime = animeRepository.findById(scoreGetPK.getAnimeId()).get();
         }catch (NoSuchElementException e)
         {
             throw new ObjectNotFoundException(
                     "User with Id: " +
-                    scoreGetRequestBody.getUserId()+
+                    scoreGetPK.getUserId()+
                     " or Anime with Id: "+
-                    scoreGetRequestBody.getAnimeId()+
+                    scoreGetPK.getAnimeId()+
                     " does not exist"
             );
         }
@@ -85,5 +85,11 @@ public class ScoreService {
         }
         var entry = scorePostRequestBody.getEntry();
         return scoreRepository.save(new Score(user, anime, entry));
+    }
+
+    public void deleteScore(ScoreGetPK scoreGetPK)
+    {
+        var score = findByIdOrElseThrowObjectNotFoundException(scoreGetPK);
+        scoreRepository.deleteById(score.getId());
     }
 }
