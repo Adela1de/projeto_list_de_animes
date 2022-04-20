@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.Requests.ScoreGetRequestBody;
-import com.example.demo.Requests.ScorePostRequestBody;
+import com.example.demo.requests.scorerequests.ScoreGetRequestBody;
+import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import com.example.demo.entities.Anime;
 import com.example.demo.entities.Score;
 import com.example.demo.entities.User;

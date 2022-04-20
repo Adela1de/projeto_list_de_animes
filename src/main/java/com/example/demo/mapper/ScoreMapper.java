@@ -1,6 +1,6 @@
 package com.example.demo.mapper;
 
-import com.example.demo.Requests.ScorePostRequestBody;
+import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import com.example.demo.dtos.ScoreDTO;
 import com.example.demo.entities.Score;
 import org.mapstruct.Mapper;

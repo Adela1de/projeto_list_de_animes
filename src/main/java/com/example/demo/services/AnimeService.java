@@ -29,4 +29,10 @@ public class AnimeService {
         anime.setId(null);
         return animeRepository.save(anime);
     }
+
+    public Anime updateAnime(Anime anime)
+    {
+        findByIdOrElseThrowObjectNotFoundException(anime.getId());
+        return animeRepository.save(anime);
+    }
 }

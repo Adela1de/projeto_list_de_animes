@@ -1,8 +1,9 @@
 package com.example.demo.mapper;
 
-import com.example.demo.Requests.UserPostRequestBody;
+import com.example.demo.requests.userrequests.UserPostRequestBody;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.entities.User;
+import com.example.demo.requests.userrequests.UserPutRequestBody;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -14,4 +15,6 @@ public abstract class UserMapper {
     public abstract UserDTO toUserDTO(User user);
 
     public abstract User toUser(UserPostRequestBody userPostRequestBody);
+
+    public abstract User toUser(UserPutRequestBody userPutRequestBody);
 }

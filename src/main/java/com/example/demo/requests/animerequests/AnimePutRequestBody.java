@@ -1,11 +1,11 @@
-package com.example.demo.Requests;
+package com.example.demo.requests.animerequests;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AnimePostRequestBody {
+public class AnimePutRequestBody {
 
     private Long id;
     private String name;

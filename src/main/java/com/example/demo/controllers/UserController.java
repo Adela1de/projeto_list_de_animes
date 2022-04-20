@@ -1,10 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Requests.UserPostRequestBody;
+import com.example.demo.requests.userrequests.UserPostRequestBody;
 import com.example.demo.dtos.AnimeDTO;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.mapper.AnimeMapper;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.requests.userrequests.UserPutRequestBody;
 import com.example.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -64,5 +65,15 @@ public class UserController {
                 toUri();
 
         return ResponseEntity.created(uri).body(userSavedDTO);
+    }
+
+    @PutMapping
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserPutRequestBody userPutRequestBody)
+    {
+        var user = UserMapper.INSTANCE.toUser(userPutRequestBody);
+        var userUpdated = userService.updateUser(user);
+        var userUpdatedDTO = UserMapper.INSTANCE.toUserDTO(userUpdated);
+
+        return ResponseEntity.ok().body(userUpdatedDTO);
     }
 }

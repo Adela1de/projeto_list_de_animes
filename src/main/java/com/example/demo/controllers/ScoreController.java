@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Requests.ScoreGetRequestBody;
-import com.example.demo.Requests.ScorePostRequestBody;
+import com.example.demo.requests.scorerequests.ScoreGetRequestBody;
+import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import com.example.demo.dtos.ScoreDTO;
 import com.example.demo.mapper.ScoreMapper;
 import com.example.demo.services.ScoreService;

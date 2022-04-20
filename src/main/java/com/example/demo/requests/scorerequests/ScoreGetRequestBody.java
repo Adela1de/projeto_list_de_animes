@@ -1,13 +1,12 @@
-package com.example.demo.Requests;
+package com.example.demo.requests.scorerequests;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ScorePostRequestBody {
+public class ScoreGetRequestBody {
 
     private Long userId;
     private Long animeId;
-    private Integer entry;
 }

@@ -1,8 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.AnimeDTO;
-import com.example.demo.entities.Anime;
 import com.example.demo.mapper.AnimeMapper;
+import com.example.demo.requests.animerequests.AnimePostRequestBody;
+import com.example.demo.requests.animerequests.AnimePutRequestBody;
 import com.example.demo.services.AnimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,9 @@ public class AnimeController {
         return ResponseEntity.ok().body(animeDTO);
     }
     @PostMapping
-    public ResponseEntity<AnimeDTO> addAnime(@RequestBody Anime anime)
+    public ResponseEntity<AnimeDTO> addAnime(@RequestBody AnimePostRequestBody animePostRequestBody)
     {
+        var anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
         var animeSaved = animeService.saveAnime(anime);
         var animeSavedDTO = AnimeMapper.INSTANCE.animeDTO(animeSaved);
         URI uri =
@@ -52,5 +54,15 @@ public class AnimeController {
                 toUri();
 
         return ResponseEntity.created(uri).body(animeSavedDTO);
+    }
+
+    @PutMapping
+    public ResponseEntity<AnimeDTO> updateAnime(@RequestBody AnimePutRequestBody animePutRequestBody)
+    {
+        var anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        var animeUpdated = animeService.updateAnime(anime);
+        var animeUpdatedDTO = AnimeMapper.INSTANCE.animeDTO(animeUpdated);
+
+        return ResponseEntity.ok().body(animeUpdatedDTO);
     }
 }

@@ -35,4 +35,10 @@ public class UserService {
         user.setId(null);
         return userRepository.save(user);
     }
+
+    public User updateUser(User user)
+    {
+        findByIdOrElseThrowObjectNotFoundException(user.getId());
+        return userRepository.save(user);
+    }
 }
