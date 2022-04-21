@@ -25,10 +25,10 @@ public class User implements Serializable {
     @NotEmpty(message = "Name can't be empty")
     @Length(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
-    @NotEmpty
+    @NotEmpty(message = "Email can't be empty")
     @Length(min = 3, max = 100, message = "Name must be between 10 and 100 character")
     private String email;
-    @NotEmpty
+    @NotEmpty(message = "Password can't be empty")
     @Length(min = 3, max = 100, message = "Password must be between 10 and 100 character")
     private String password;
     @JsonIgnore

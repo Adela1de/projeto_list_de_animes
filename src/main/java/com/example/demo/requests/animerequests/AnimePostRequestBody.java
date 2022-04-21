@@ -1,5 +1,5 @@
 package com.example.demo.requests.animerequests;
 
-public class AnimePostRequestBody {
+public class AnimePostRequestBody extends AnimeEntityCamps{
 
 }

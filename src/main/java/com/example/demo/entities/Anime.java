@@ -22,8 +22,8 @@ public class Anime implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "Name can't be empty")
-    @Length(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
+    @NotEmpty
+    @Length(min = 3, max = 100, message = "Name has to have length between 3 and 100")
     private String name;
     private String[] studio;
     private String[] genre;
