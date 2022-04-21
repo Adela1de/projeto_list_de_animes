@@ -5,7 +5,7 @@ import com.example.demo.mapper.ScoreMapper;
 import com.example.demo.requests.scorerequests.ScoreDeleteRequestBody;
 import com.example.demo.requests.scorerequests.ScoreGetRequestBody;
 import com.example.demo.requests.scorerequests.ScorePostRequestBody;
-import com.example.demo.requests.scorerequests.ScorePutRequestBody;
+import com.example.demo.requests.scorerequests.ScorePatchRequestBody;
 import com.example.demo.services.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/scores")
@@ -76,10 +77,10 @@ public class ScoreController {
         return ResponseEntity.created(uri).body(savedScoreDTO);
     }
 
-    @PutMapping
-    public ResponseEntity<ScoreDTO> updateScore(@RequestBody ScorePutRequestBody scorePutRequestBody)
+    @PatchMapping
+    public ResponseEntity<ScoreDTO> updateScore(@RequestBody ScorePatchRequestBody scorePatchRequestBody)
     {
-        var updatedScore = scoreService.updateEntry(scorePutRequestBody);
+        var updatedScore = scoreService.updateEntry(scorePatchRequestBody);
         var updatedScoreDTO = ScoreMapper.INSTANCE.toScoreDTO(updatedScore);
 
         return ResponseEntity.ok().body(updatedScoreDTO);

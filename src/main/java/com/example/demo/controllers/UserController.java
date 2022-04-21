@@ -12,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/users")
@@ -48,12 +50,18 @@ public class UserController {
     public ResponseEntity<Iterable<AnimeDTO>> findFavorites(@PathVariable Long id)
     {
         var favorites = userService.findFavorites(id);
-        var favoritesDTO = favorites.stream().map(AnimeMapper.INSTANCE::animeDTO).collect(Collectors.toList());
+        var favoritesDTO =
+                favorites.
+                stream().
+                map(AnimeMapper.INSTANCE::animeDTO).
+                collect(Collectors.
+                toList());
+
         return ResponseEntity.ok().body(favoritesDTO);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> addUser(@RequestBody UserPostRequestBody userPostRequestBody)
+    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserPostRequestBody userPostRequestBody)
     {
         var user = UserMapper.INSTANCE.toUser(userPostRequestBody);
         var userSaved = userService.saveUser(user);
@@ -68,7 +76,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserPutRequestBody userPutRequestBody)
+    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserPutRequestBody userPutRequestBody)
     {
         var user = UserMapper.INSTANCE.toUser(userPutRequestBody);
         var userUpdated = userService.updateUser(user);

@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/animes")
@@ -41,7 +43,7 @@ public class AnimeController {
         return ResponseEntity.ok().body(animeDTO);
     }
     @PostMapping
-    public ResponseEntity<AnimeDTO> addAnime(@RequestBody AnimePostRequestBody animePostRequestBody)
+    public ResponseEntity<AnimeDTO> addAnime(@Valid @RequestBody AnimePostRequestBody animePostRequestBody)
     {
         var anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
         var animeSaved = animeService.saveAnime(anime);
@@ -57,7 +59,7 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<AnimeDTO> updateAnime(@RequestBody AnimePutRequestBody animePutRequestBody)
+    public ResponseEntity<AnimeDTO> updateAnime(@Valid @RequestBody AnimePutRequestBody animePutRequestBody)
     {
         var anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
         var animeUpdated = animeService.updateAnime(anime);

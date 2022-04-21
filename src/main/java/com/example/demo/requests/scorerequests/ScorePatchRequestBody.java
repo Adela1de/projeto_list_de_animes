@@ -3,7 +3,7 @@ package com.example.demo.requests.scorerequests;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ScorePutRequestBody extends ScorePKIdCamps{
+public class ScorePatchRequestBody extends ScorePKIdCamps{
 
     @Getter
     @Setter
