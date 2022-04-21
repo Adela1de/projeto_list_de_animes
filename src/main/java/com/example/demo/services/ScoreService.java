@@ -8,7 +8,7 @@ import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.AnimeRepository;
 import com.example.demo.repositories.ScoreRepository;
 import com.example.demo.repositories.UserRepository;
-import com.example.demo.requests.scorerequests.ScoreGetPK;
+import com.example.demo.requests.scorerequests.ScorePKIdCamps;
 import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,20 +37,20 @@ public class ScoreService {
         return userList;
     }
 
-    public Score findByIdOrElseThrowObjectNotFoundException(ScoreGetPK scoreGetPK)
+    public Score findByIdOrElseThrowObjectNotFoundException(ScorePKIdCamps scorePKIdCamps)
     {
         User user;
         Anime anime;
         try{
-            user = userRepository.findById(scoreGetPK.getUserId()).get();
-            anime = animeRepository.findById(scoreGetPK.getAnimeId()).get();
+            user = userRepository.findById(scorePKIdCamps.getUserId()).get();
+            anime = animeRepository.findById(scorePKIdCamps.getAnimeId()).get();
         }catch (NoSuchElementException e)
         {
             throw new ObjectNotFoundException(
                     "User with Id: " +
-                    scoreGetPK.getUserId()+
+                    scorePKIdCamps.getUserId()+
                     " or Anime with Id: "+
-                    scoreGetPK.getAnimeId()+
+                    scorePKIdCamps.getAnimeId()+
                     " does not exist"
             );
         }
@@ -87,9 +87,9 @@ public class ScoreService {
         return scoreRepository.save(new Score(user, anime, entry));
     }
 
-    public void deleteScore(ScoreGetPK scoreGetPK)
+    public void deleteScore(ScorePKIdCamps scorePKIdCamps)
     {
-        var score = findByIdOrElseThrowObjectNotFoundException(scoreGetPK);
+        var score = findByIdOrElseThrowObjectNotFoundException(scorePKIdCamps);
         scoreRepository.deleteById(score.getId());
     }
 }

@@ -3,11 +3,9 @@ package com.example.demo.requests.scorerequests;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-public class ScorePostRequestBody {
+public class ScorePostRequestBody extends ScorePKIdCamps {
 
-    private Long userId;
-    private Long animeId;
+    @Getter
+    @Setter
     private Integer entry;
 }

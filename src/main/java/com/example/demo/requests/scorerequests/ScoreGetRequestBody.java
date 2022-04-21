@@ -1,5 +1,5 @@
 package com.example.demo.requests.scorerequests;
 
-public class ScoreGetRequestBody extends ScoreGetPK{
+public class ScoreGetRequestBody extends ScorePKIdCamps {
 
 }

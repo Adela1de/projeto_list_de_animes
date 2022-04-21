@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ScoreGetPK {
+public class ScorePKIdCamps {
 
     private Long userId;
     private Long animeId;
