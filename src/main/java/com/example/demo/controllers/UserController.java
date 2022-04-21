@@ -61,8 +61,16 @@ public class UserController {
         return ResponseEntity.ok().body(favoritesDTO);
     }
 
-    @GetMapping(path = "/user")
+    @PostMapping(path = "/user")
     public ResponseEntity<UserDTO> findByEmailAndPassword(@RequestBody UserGetRequestBody userGetRequestBody)
+    {
+        var user = userService.findByEmailAndPassword(userGetRequestBody);
+        var userDTO = UserMapper.INSTANCE.toUserDTO(user);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @GetMapping(path = "/user")
+    public ResponseEntity<UserDTO> findByEmailAndPasswordGet(@RequestBody UserGetRequestBody userGetRequestBody)
     {
         var user = userService.findByEmailAndPassword(userGetRequestBody);
         var userDTO = UserMapper.INSTANCE.toUserDTO(user);
