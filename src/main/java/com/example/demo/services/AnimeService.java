@@ -4,6 +4,7 @@ import com.example.demo.entities.Anime;
 import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.AnimeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +40,16 @@ public class AnimeService {
     public void deleteAnime(Long id)
     {
         findByIdOrElseThrowObjectNotFoundException(id);
-        animeRepository.deleteById(id);
+        try{
+            animeRepository.deleteById(id);
+        }catch(DataIntegrityViolationException e)
+        {
+            throw new com.example.demo.exceptions.DataIntegrityViolationException(
+                    "Object can't be deleted, there is users associated with it objectId:"
+                    +id+
+                    " Type:"
+                    + Anime.class.getName());
+        }
     }
 
 }
