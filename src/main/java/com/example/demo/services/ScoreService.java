@@ -40,24 +40,7 @@ public class ScoreService {
 
     public Score findByIdOrElseThrowObjectNotFoundException(ScorePKIdCamps scorePKIdCamps)
     {
-        User user;
-        Anime anime;
-        try{
-            user = userRepository.findById(scorePKIdCamps.getUserId()).get();
-            anime = animeRepository.findById(scorePKIdCamps.getAnimeId()).get();
-        }catch (NoSuchElementException e)
-        {
-            throw new ObjectNotFoundException(
-                    "User with Id: " +
-                    scorePKIdCamps.getUserId()+
-                    " or Anime with Id: "+
-                    scorePKIdCamps.getAnimeId()+
-                    " does not exist"
-            );
-        }
-
-        var scorePK = new ScorePK(user, anime);
-
+        var scorePK = userAndAnimeExists(scorePKIdCamps);
         return scoreRepository.findById(scorePK).orElseThrow(
                 () -> new ObjectNotFoundException(
                         "Score could not be found for userId: "+
@@ -69,23 +52,9 @@ public class ScoreService {
 
     public Score saveScore(ScorePostRequestBody scorePostRequestBody)
     {
-        User user;
-        Anime anime;
-        try{
-            user = userRepository.findById(scorePostRequestBody.getUserId()).get();
-            anime = animeRepository.findById(scorePostRequestBody.getAnimeId()).get();
-        }catch (NoSuchElementException e)
-        {
-            throw new ObjectNotFoundException(
-                    "User with Id: " +
-                    scorePostRequestBody.getUserId()+
-                    " or Anime with Id: "+
-                    scorePostRequestBody.getAnimeId()+
-                    " does not exist"
-            );
-        }
+        var scorePK = userAndAnimeExists(scorePostRequestBody);
         var entry = scorePostRequestBody.getEntry();
-        return scoreRepository.save(new Score(user, anime, entry));
+        return scoreRepository.save(new Score(scorePK.getUser(), scorePK.getAnime(), entry));
     }
 
     public void deleteScore(ScorePKIdCamps scorePKIdCamps)
@@ -100,6 +69,27 @@ public class ScoreService {
         scoreToBeUpdated.setEntry(scorePutRequestBody.getEntry());
 
         return scoreRepository.save(scoreToBeUpdated);
+    }
+
+    public ScorePK userAndAnimeExists(ScorePKIdCamps scorePKIdCamps)
+    {
+        User user;
+        Anime anime;
+        try{
+            user = userRepository.findById(scorePKIdCamps.getUserId()).get();
+            anime = animeRepository.findById(scorePKIdCamps.getAnimeId()).get();
+        }catch (NoSuchElementException e)
+        {
+            throw new ObjectNotFoundException(
+                    "User with Id: " +
+                            scorePKIdCamps.getUserId()+
+                            " or Anime with Id: "+
+                            scorePKIdCamps.getAnimeId()+
+                            " does not exist"
+            );
+        }
+
+        return new ScorePK(user, anime);
     }
 
 }
