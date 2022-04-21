@@ -10,6 +10,7 @@ import com.example.demo.repositories.ScoreRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.requests.scorerequests.ScorePKIdCamps;
 import com.example.demo.requests.scorerequests.ScorePostRequestBody;
+import com.example.demo.requests.scorerequests.ScorePutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -92,4 +93,13 @@ public class ScoreService {
         var score = findByIdOrElseThrowObjectNotFoundException(scorePKIdCamps);
         scoreRepository.deleteById(score.getId());
     }
+
+    public Score updateEntry(ScorePutRequestBody scorePutRequestBody)
+    {
+        var scoreToBeUpdated = findByIdOrElseThrowObjectNotFoundException(scorePutRequestBody);
+        scoreToBeUpdated.setEntry(scorePutRequestBody.getEntry());
+
+        return scoreRepository.save(scoreToBeUpdated);
+    }
+
 }
