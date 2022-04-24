@@ -55,7 +55,7 @@ public class AnimeController {
                 buildAndExpand(anime.getId()).
                 toUri();
 
-        return ResponseEntity.created(uri).body(animeSavedDTO);
+        return ResponseEntity.created(uri).body(null);
     }
 
     @PutMapping

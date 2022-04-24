@@ -72,7 +72,7 @@ public class UserController {
                 buildAndExpand(userSavedDTO.getId()).
                 toUri();
 
-        return ResponseEntity.created(uri).body(userSavedDTO);
+        return ResponseEntity.created(uri).body(null);
     }
 
     @PutMapping

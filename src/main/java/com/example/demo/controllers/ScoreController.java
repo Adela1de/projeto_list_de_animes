@@ -74,7 +74,7 @@ public class ScoreController {
                 buildAndExpand(savedScoreDTO.getId().getUser().getId()).
                 toUri();
 
-        return ResponseEntity.created(uri).body(savedScoreDTO);
+        return ResponseEntity.created(uri).body(null);
     }
 
     @PatchMapping
