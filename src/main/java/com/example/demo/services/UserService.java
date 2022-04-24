@@ -4,6 +4,7 @@ import com.example.demo.entities.Anime;
 import com.example.demo.entities.User;
 import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.requests.userrequests.UserGetRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,11 @@ public class UserService {
     {
         return userRepository.findById(id).orElseThrow(
                 () -> new ObjectNotFoundException("User not found! ID: " + id + " type: " + User.class.getName()));
+    }
+
+    public User findByEmailAndPassword(UserGetRequestBody userGetRequestBody)
+    {
+        return userRepository.findByEmailAndPassword(userGetRequestBody.getEmail(), userGetRequestBody.getPassword());
     }
 
     public List<Anime> findFavorites(Long id)
