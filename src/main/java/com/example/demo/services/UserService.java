@@ -53,4 +53,12 @@ public class UserService {
         findByIdOrElseThrowObjectNotFoundException(id);
         userRepository.deleteById(id);
     }
+
+    public User updateFavorites(Long id, Anime anime)
+    {
+        var user = findByIdOrElseThrowObjectNotFoundException(id);
+        user.getFavorites().add(anime);
+        return userRepository.save(user);
+    }
+
 }

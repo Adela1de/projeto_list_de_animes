@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.dtos.AnimeDTO;
 import com.example.demo.dtos.UserDTO;
+import com.example.demo.entities.Anime;
 import com.example.demo.mapper.AnimeMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.requests.userrequests.UserGetRequestBody;
@@ -108,4 +109,13 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping(path = "/favorites/{id}")
+    public ResponseEntity<UserDTO> updateFavorites(@PathVariable Long id, @RequestBody Anime anime)
+    {
+        var user = userService.updateFavorites(id , anime);
+        var updatedUserDTO = UserMapper.INSTANCE.toUserDTO(user);
+        return ResponseEntity.ok().body(updatedUserDTO);
+    }
+
 }
