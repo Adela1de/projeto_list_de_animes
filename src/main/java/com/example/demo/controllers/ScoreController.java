@@ -66,6 +66,7 @@ public class ScoreController {
     public ResponseEntity<ScoreDTO> addScore(@RequestBody ScorePostRequestBody scorePostRequestBody)
     {
         var savedScore = scoreService.saveScore(scorePostRequestBody);
+
         var savedScoreDTO = ScoreMapper.INSTANCE.toScoreDTO(savedScore);
         URI uri =
                 ServletUriComponentsBuilder.
