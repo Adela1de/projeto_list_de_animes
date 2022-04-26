@@ -36,7 +36,7 @@ public class ScoreController {
         return ResponseEntity.ok().body(allScoresDTO);
     }
 
-    @GetMapping(path = "/find")
+    @PostMapping(path = "/find")
     public ResponseEntity<ScoreDTO> findById(@RequestBody ScoreGetRequestBody scoreGetRequestBody)
     {
         var score =
