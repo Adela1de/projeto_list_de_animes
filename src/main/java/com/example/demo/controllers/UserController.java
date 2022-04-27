@@ -102,12 +102,4 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping(path = "/favorites/{id}")
-    public ResponseEntity<UserDTO> updateFavorites(@PathVariable Long id, @RequestBody Anime anime)
-    {
-        var user = userService.updateFavorites(id , anime);
-        var updatedUserDTO = UserMapper.INSTANCE.toUserDTO(user);
-        return ResponseEntity.ok().body(updatedUserDTO);
-    }
-
 }
