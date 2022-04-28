@@ -54,7 +54,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateFavorites(Long id, Anime anime)
+    public User addFavorites(Long id, Anime anime)
     {
         var user = findByIdOrElseThrowObjectNotFoundException(id);
         user.getFavorites().add(anime);

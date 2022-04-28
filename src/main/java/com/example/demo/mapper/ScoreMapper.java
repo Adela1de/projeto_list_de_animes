@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.dtos.ScoreGetByUserDTO;
 import com.example.demo.requests.scorerequests.ScorePostRequestBody;
 import com.example.demo.dtos.ScoreDTO;
 import com.example.demo.entities.Score;
@@ -14,4 +15,6 @@ public abstract class ScoreMapper {
     public abstract Score toScore(ScorePostRequestBody scorePostRequestBody);
 
     public abstract ScoreDTO toScoreDTO(Score score);
+
+    public abstract ScoreGetByUserDTO toScoreGetByUserDTO(Score score);
 }

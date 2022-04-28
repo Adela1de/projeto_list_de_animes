@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.ScoreDTO;
+import com.example.demo.dtos.ScoreGetByUserDTO;
 import com.example.demo.mapper.ScoreMapper;
 import com.example.demo.requests.scorerequests.ScoreDeleteRequestBody;
 import com.example.demo.requests.scorerequests.ScoreGetRequestBody;
@@ -49,13 +50,13 @@ public class ScoreController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Iterable<ScoreDTO>> findByUser(@PathVariable Long id)
+    public ResponseEntity<Iterable<ScoreGetByUserDTO>> findByUser(@PathVariable Long id)
     {
         var userScoresDTO =
                 scoreService.
                 findByUser(id).
                 stream().
-                map(ScoreMapper.INSTANCE::toScoreDTO).
+                map(ScoreMapper.INSTANCE::toScoreGetByUserDTO).
                 collect(Collectors.toList());
 
         return ResponseEntity.ok().body(userScoresDTO);

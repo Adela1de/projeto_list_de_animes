@@ -102,10 +102,10 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "favorites/{id}")
+    @PutMapping(path = "favorites/add/{id}")
     public ResponseEntity<UserDTO> addFavorite(@PathVariable Long id, @RequestBody Anime anime)
     {
-        var userUpdated = userService.updateFavorites(id, anime);
+        var userUpdated = userService.addFavorites(id, anime);
         var userUpdatedDTO = UserMapper.INSTANCE.toUserDTO(userUpdated);
         return ResponseEntity.ok().body(userUpdatedDTO);
     }
