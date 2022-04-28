@@ -49,7 +49,7 @@ public class ScoreController {
         return ResponseEntity.ok().body(scoreDTO);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/user/{id}")
     public ResponseEntity<Iterable<ScoreGetByUserDTO>> findByUser(@PathVariable Long id)
     {
         var userScoresDTO =
