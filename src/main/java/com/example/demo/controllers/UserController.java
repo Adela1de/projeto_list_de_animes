@@ -110,4 +110,12 @@ public class UserController {
         return ResponseEntity.ok().body(userUpdatedDTO);
     }
 
+    @PutMapping(path = "favorites/remove/{id}")
+    public ResponseEntity<UserDTO> removeFavorite(@PathVariable Long id, @RequestBody Anime anime)
+    {
+        var userUpdated = userService.removeFavorites(id, anime);
+        var userUpdatedDTO = UserMapper.INSTANCE.toUserDTO(userUpdated);
+        return ResponseEntity.ok().body(userUpdatedDTO);
+    }
+
 }
