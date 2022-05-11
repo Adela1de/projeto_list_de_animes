@@ -15,6 +15,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final AnimeService animeService;
 
     public Iterable<User> saveAll(Iterable<User> users){ return userRepository.saveAll( users ); }
 
@@ -39,13 +40,13 @@ public class UserService {
 
     public User saveUser(User user) {
         user.setId(null);
-        return userRepository.save(user);
+        return updateChanges(user);
     }
 
     public User updateUser(User user)
     {
         findByIdOrElseThrowObjectNotFoundException(user.getId());
-        return userRepository.save(user);
+        return updateChanges(user);
     }
 
     public void deleteUser(Long id)
@@ -58,13 +59,20 @@ public class UserService {
     {
         var user = findByIdOrElseThrowObjectNotFoundException(id);
         user.getFavorites().add(anime);
-        return userRepository.save(user);
+        return updateChanges(user);
     }
 
     public User removeFavorites(Long id, Anime anime)
     {
         var user = findByIdOrElseThrowObjectNotFoundException(id);
-        user.getFavorites().remove(anime);
+        var animeFound = animeService.findByIdOrElseThrowObjectNotFoundException(anime.getId());
+        var index = user.getFavorites().indexOf(animeFound);
+        user.getFavorites().remove(index);
+        return updateChanges(user);
+    }
+
+    public User updateChanges(User user)
+    {
         return userRepository.save(user);
     }
 
