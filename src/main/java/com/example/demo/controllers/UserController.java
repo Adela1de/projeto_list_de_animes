@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/user")
-    public ResponseEntity<UserDTO> findByEmailAndPassword(@RequestBody UserGetRequestBody userGetRequestBody)
+    public ResponseEntity<UserDTO> findByEmailAndPassword(@Valid @RequestBody UserGetRequestBody userGetRequestBody)
     {
         var user = userService.findByEmailAndPassword(userGetRequestBody);
         var userDTO = UserMapper.INSTANCE.toUserDTO(user);
